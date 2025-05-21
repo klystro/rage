@@ -1,3 +1,4 @@
+version: 2
 project_name: rage
 release:
   github:
@@ -58,7 +59,6 @@ archives:
       - goos: windows
         formats:
           - zip
-        format: zip
     files:
       - src: license*
       - src: LICENSE*
@@ -66,9 +66,7 @@ archives:
       - src: README*
       - src: changelog*
       - src: CHANGELOG*
-    format: tar.gz
 snapshot:
-  name_template: '{{ incpatch .Version }}-next'
   version_template: '{{ incpatch .Version }}-next'
 checksum:
   name_template: checksums.txt
