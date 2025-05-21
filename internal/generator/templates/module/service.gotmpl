@@ -1,0 +1,8 @@
+package service
+
+type {{.Name}}Service interface {
+    Create({{.Name}} interface{}) error
+    Get(id string) (interface{}, error)
+    Update({{.Name}} interface{}) error
+    Delete(id string) error
+}
