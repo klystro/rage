@@ -6,6 +6,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/klystro/rage/cmd/generate"
 	"github.com/spf13/cobra"
 )
 
@@ -35,4 +36,6 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.AddCommand(generate.ModuleCmd)
+	rootCmd.AddCommand(generate.HandlerCmd)
 }
