@@ -41,4 +41,6 @@ func init() {
 	rootCmd.AddCommand(generate.MiddlewareCmd)
 	rootCmd.AddCommand(generate.RouterCmd)
 	rootCmd.AddCommand(generate.DocsCmd)
+	rootCmd.AddCommand(generate.DockerCmd)
+	rootCmd.AddCommand(generate.CICDCmd)
 }
