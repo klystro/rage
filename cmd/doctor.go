@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/klystro/rage/internal/generator"
 	"github.com/spf13/cobra"
 )
 

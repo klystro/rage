@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/klystro/rage/internal/generator"
 	"github.com/spf13/cobra"
 )
 
