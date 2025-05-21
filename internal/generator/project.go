@@ -24,17 +24,17 @@ func CreateProject(projectName string) error {
 		}
 	}
 
-	files := map[string]string{
-		"go.mod":  `module {{.ProjectName}}\n\ngo 1.20`,
-		"main.go": `package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello from {{.ProjectName}}!\")\n}`,
+	templates := map[string]string{
+		"go.mod":  "templates/project.gotmpl",
+		"main.go": "templates/main.gotmpl",
 	}
 
 	data := TemplateData{ProjectName: projectName}
-	for name, content := range files {
+	for name, templatePath := range templates {
 		path := filepath.Join(projectName, name)
-		tmpl, err := template.New(name).Parse(content)
+		tmpl, err := template.ParseFiles(filepath.Join("internal/generator", templatePath))
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to parse template %s: %w", templatePath, err)
 		}
 		f, err := os.Create(path)
 		if err != nil {
@@ -99,21 +99,20 @@ func GenerateHandler(module, name string) error {
 		return err
 	}
 	filePath := filepath.Join(dir, fmt.Sprintf("%s.go", name))
-	tmpl := `package handler
 
-import "net/http"
+	tmpl, err := template.ParseFiles(filepath.Join("internal/generator/templates/handler.gotmpl"))
+	if err != nil {
+		return fmt.Errorf("failed to parse handler template: %w", err)
+	}
 
-func Create{{.Name}}(w http.ResponseWriter, r *http.Request) {}
-func Get{{.Name}}(w http.ResponseWriter, r *http.Request) {}
-func Update{{.Name}}(w http.ResponseWriter, r *http.Request) {}
-func Delete{{.Name}}(w http.ResponseWriter, r *http.Request) {}
-`
 	data := struct{ Name string }{Name: name}
-	t, _ := template.New("crud").Parse(tmpl)
-	f, _ := os.Create(filePath)
+	f, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
 	defer f.Close()
-	t.Execute(f, data)
-	return nil
+
+	return tmpl.Execute(f, data)
 }
 
 func Doctor() error {
