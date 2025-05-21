@@ -38,4 +38,7 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.AddCommand(generate.ModuleCmd)
 	rootCmd.AddCommand(generate.HandlerCmd)
+	rootCmd.AddCommand(generate.MiddlewareCmd)
+	rootCmd.AddCommand(generate.RouterCmd)
+	rootCmd.AddCommand(generate.DocsCmd)
 }

@@ -1,0 +1,17 @@
+package router
+
+import (
+	"net/http"
+)
+
+type {{.Name}}Router struct {
+	// Add your dependencies here
+}
+
+func New{{.Name}}Router() *{{.Name}}Router {
+	return &{{.Name}}Router{}
+}
+
+func (r *{{.Name}}Router) RegisterRoutes(mux *http.ServeMux) {
+	// TODO: Register your routes here
+}
