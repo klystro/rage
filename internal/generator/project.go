@@ -32,7 +32,7 @@ func CreateProject(projectName string) error {
 	data := TemplateData{ProjectName: projectName}
 	for name, templatePath := range templates {
 		path := filepath.Join(projectName, name)
-		tmpl, err := template.ParseFiles(filepath.Join("internal/generator", templatePath))
+		tmpl, err := template.ParseFiles(templatePath)
 		if err != nil {
 			return fmt.Errorf("failed to parse template %s: %w", templatePath, err)
 		}

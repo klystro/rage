@@ -1,8 +1,6 @@
 package generator
 
 import (
-	"path/filepath"
-
 	"github.com/klystro/rage/internal/utils"
 )
 
@@ -14,7 +12,7 @@ func GenerateDocker() error {
 	}
 
 	for filename, templatePath := range templates {
-		content, err := utils.RenderTemplate(filepath.Join("internal/generator", templatePath), nil)
+		content, err := utils.RenderTemplate(templatePath, nil)
 		if err != nil {
 			return err
 		}

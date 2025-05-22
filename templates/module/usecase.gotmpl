@@ -1,8 +1,23 @@
 package usecase
 
+import (
+    "context"
+    "github.com/{{.ProjectName}}/modules/{{.Name}}/model"
+)
+
 type {{.Name}}UseCase interface {
-    Create({{.Name}} interface{}) error
-    Get(id string) (interface{}, error)
-    Update({{.Name}} interface{}) error
-    Delete(id string) error
+    Create(ctx context.Context, {{.Name | lower}} *model.{{.Name}}) error
+    Get(ctx context.Context, id string) (*model.{{.Name}}, error)
+    Update(ctx context.Context, {{.Name | lower}} *model.{{.Name}}) error
+    Delete(ctx context.Context, id string) error
+}
+
+type {{.Name | lower}}UseCase struct {
+    repo {{.Name}}Repository
+}
+
+func New{{.Name}}UseCase(repo {{.Name}}Repository) {{.Name}}UseCase {
+    return &{{.Name | lower}}UseCase{
+        repo: repo,
+    }
 }

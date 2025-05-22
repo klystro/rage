@@ -14,7 +14,7 @@ func GenerateHandler(module, name string) error {
 	}
 	filePath := filepath.Join(dir, fmt.Sprintf("%s.go", name))
 
-	tmpl, err := template.ParseFiles(filepath.Join("internal/generator/templates/module/handler.gotmpl"))
+	tmpl, err := template.ParseFiles(filepath.Join("templates/module/handler.gotmpl"))
 	if err != nil {
 		return fmt.Errorf("failed to parse handler template: %w", err)
 	}

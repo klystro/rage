@@ -9,7 +9,7 @@ import (
 func GenerateDocs() error {
 	dir := "docs"
 	filePath := filepath.Join(dir, "swagger.json")
-	templatePath := filepath.Join("internal/generator/templates/docs/swagger.gotmpl")
+	templatePath := filepath.Join("templates/docs/swagger.gotmpl")
 
 	content, err := utils.RenderTemplate(templatePath, nil)
 	if err != nil {

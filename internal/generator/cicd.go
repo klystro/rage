@@ -9,17 +9,17 @@ import (
 
 func GenerateCICD(provider string) error {
 	var (
-		outputPath string
+		outputPath   string
 		templatePath string
 	)
 
 	switch provider {
 	case "github":
 		outputPath = filepath.Join(".github", "workflows", "ci.yml")
-		templatePath = filepath.Join("internal/generator/templates/infrastructure/cicd/github.gotmpl")
+		templatePath = filepath.Join("templates/infrastructure/cicd/github.gotmpl")
 	case "gitlab":
 		outputPath = ".gitlab-ci.yml"
-		templatePath = filepath.Join("internal/generator/templates/infrastructure/cicd/gitlab.gotmpl")
+		templatePath = filepath.Join("templates/infrastructure/cicd/gitlab.gotmpl")
 	default:
 		return fmt.Errorf("unsupported provider: %s", provider)
 	}
