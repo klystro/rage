@@ -5,7 +5,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"text/template"
+
+	"github.com/klystro/rage/internal/utils"
 )
 
 type TemplateData struct {
@@ -24,24 +25,24 @@ func CreateProject(projectName string) error {
 		}
 	}
 
+	templateDir, err := utils.GetTemplateDir()
+	if err != nil {
+		return fmt.Errorf("failed to get template directory: %w", err)
+	}
+
 	templates := map[string]string{
-		"go.mod":  "templates/base/project.gotmpl",
-		"main.go": "templates/base/main.gotmpl",
+		"go.mod":  filepath.Join(templateDir, "base/project.gotmpl"),
+		"main.go": filepath.Join(templateDir, "base/main.gotmpl"),
 	}
 
 	data := TemplateData{ProjectName: projectName}
 	for name, templatePath := range templates {
 		path := filepath.Join(projectName, name)
-		tmpl, err := template.ParseFiles(templatePath)
-		if err != nil {
-			return fmt.Errorf("failed to parse template %s: %w", templatePath, err)
-		}
-		f, err := os.Create(path)
+		content, err := utils.RenderTemplate(templatePath, data)
 		if err != nil {
 			return err
 		}
-		defer f.Close()
-		if err := tmpl.Execute(f, data); err != nil {
+		if err := utils.WriteFile(path, content); err != nil {
 			return err
 		}
 	}

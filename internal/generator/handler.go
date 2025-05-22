@@ -4,27 +4,27 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"text/template"
+
+	"github.com/klystro/rage/internal/utils"
 )
 
 func GenerateHandler(module, name string) error {
+	templateDir, err := utils.GetTemplateDir()
+	if err != nil {
+		return fmt.Errorf("failed to get template directory: %w", err)
+	}
+
 	dir := filepath.Join("modules", module, "handler")
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
 		return err
 	}
 	filePath := filepath.Join(dir, fmt.Sprintf("%s.go", name))
+	templatePath := filepath.Join(templateDir, "module/handler.gotmpl")
 
-	tmpl, err := template.ParseFiles(filepath.Join("templates/module/handler.gotmpl"))
-	if err != nil {
-		return fmt.Errorf("failed to parse handler template: %w", err)
-	}
-
-	data := struct{ Name string }{Name: name}
-	f, err := os.Create(filePath)
+	content, err := utils.RenderTemplate(templatePath, struct{ Name string }{Name: name})
 	if err != nil {
 		return err
 	}
-	defer f.Close()
 
-	return tmpl.Execute(f, data)
+	return utils.WriteFile(filePath, content)
 }

@@ -11,7 +11,7 @@ import (
 var withTests bool
 
 var ModuleCmd = &cobra.Command{
-	Use:   "generate module [name]",
+	Use:   "module [name]",
 	Short: "Generate a new module with layered structure",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

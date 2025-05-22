@@ -9,7 +9,7 @@ import (
 )
 
 var HandlerCmd = &cobra.Command{
-	Use:   "generate handler [module] [name]",
+	Use:   "handler [module] [name]",
 	Short: "Generate CRUD handler in a module",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
