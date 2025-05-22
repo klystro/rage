@@ -1,1 +1,0 @@
-`goreleaser release --snapshot --clean`
