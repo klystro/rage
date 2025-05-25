@@ -176,17 +176,3 @@ This approach allows you to:
 
 
 <br>
-
-
-# Build the binary
-go build -o rage-s
-
-# Create templates directory in the installation location
-sudo mkdir -p /usr/local/bin/templates
-
-# Copy binary and templates
-sudo cp rage-s /usr/local/bin/
-sudo cp -r templates/* /usr/local/bin/templates/
-
-# Make executable
-sudo chmod +x /usr/local/bin/rage-s
